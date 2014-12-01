@@ -1,5 +1,8 @@
 package eu.pericles.handler;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -72,7 +75,6 @@ public class Payload implements Callable<String>
 	@Override
 	public String call() throws Exception
 	{
-//		System.out.println("Starting to run " + mUUID);
 		mStatus = "running";
 		ProcessBuilder pb = new ProcessBuilder(mCommandWithParams);
 		Process proc = null;
@@ -83,7 +85,6 @@ public class Payload implements Callable<String>
 		catch (Throwable e)
 		{
 			mStatus = "error: " + e.getMessage();
-//			System.out.println("Completed " + mUUID + " with status: " + mStatus);
 			return mStatus;
 		}
 		ExecutorService service = Executors.newFixedThreadPool(2);
@@ -96,7 +97,7 @@ public class Payload implements Callable<String>
 		} 
 		catch (Throwable e)
 		{
-			// not sure what to do here
+			// just logging any errors here
 			e.printStackTrace();
 		}
 		try
@@ -109,7 +110,7 @@ public class Payload implements Callable<String>
 				}
 				catch (InterruptedException e)
 				{
-					// ignore
+					// ignore - keep waiting
 				}
 			}
 			if (proc.exitValue() == 0)
@@ -146,5 +147,31 @@ public class Payload implements Callable<String>
 		return result.toString();
 	}
 	
+	private static class StreamOutput implements Callable<String>
+	{
+
+		private InputStream mInput;
+
+		public StreamOutput(InputStream input)
+		{
+			mInput = input;
+		}
+		
+		@Override
+		public String call() throws Exception 
+		{
+			BufferedReader reader = new BufferedReader(new InputStreamReader(mInput));
+			String line = null;
+			StringBuilder result = new StringBuilder();
+			while ((line = reader.readLine()) != null)
+			{
+				result.append(line);
+				result.append("\n");
+			}
+			return result.toString();
+		}
+		
+	}
+
 
 }
