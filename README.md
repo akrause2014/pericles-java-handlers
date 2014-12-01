@@ -87,9 +87,10 @@ curl http://localhost:8080/payloads/d7278b78-1214-4658-8991-d6b5054102ea
 	"params":[20],
 	"status":
 	"completed"
-}```
+}
+```
 
-Delete a payload:
+Terminate a process and delete it from the list:
 
 - request:
 
