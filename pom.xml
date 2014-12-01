@@ -22,46 +22,12 @@
                     <target>1.7</target>
                 </configuration>
 	        </plugin>
-<plugin>
-<artifactId>maven-war-plugin</artifactId>
-<configuration>
-<archiveClasses>true</archiveClasses>
-</configuration>
-</plugin>
-<!-- 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>make-a-jar</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-				</plugin>
- -->
- 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-shade-plugin</artifactId>
-				<version>2.3</version>
-	            <executions>
-	            	<execution>
-	            		<phase>package</phase>
-	                    <goals>
-	                    	<goal>shade</goal>
-	                    </goals>
-	                    <configuration>
-	                    	<transformers>
-	                			<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-	                            	<mainClass>eu.pericles.handler.HandlerApplication</mainClass>
-	                            </transformer>
-	                        </transformers>
-	                    </configuration>
-	            	</execution>
-	        	</executions>
-	    	</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<archiveClasses>true</archiveClasses>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 

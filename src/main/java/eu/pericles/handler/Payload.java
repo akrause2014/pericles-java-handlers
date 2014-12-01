@@ -102,17 +102,15 @@ public class Payload implements Callable<String>
 		}
 		try
 		{
-			while (!stdout.isDone())
+			try
 			{
-				try
-				{
-					stdout.get();
-				}
-				catch (InterruptedException e)
-				{
-					// ignore - keep waiting
-				}
+				stdout.get();
 			}
+			catch (InterruptedException e)
+			{
+				// ignore
+			}
+			proc.waitFor();
 			if (proc.exitValue() == 0)
 			{
 				mStatus = "completed";
